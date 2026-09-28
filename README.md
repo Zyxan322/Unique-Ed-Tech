@@ -21,6 +21,14 @@ npm i
 npm run dev
 ```
 
+## Deploy to Vercel
+
+This project uses TanStack Start with Nitro's Vercel preset. Import `Zyxan322/Unique-Ed-Tech` in Vercel; `vercel.json` declares the TanStack Start framework, and `bun.lock` lets Vercel select Bun.
+
+Use `bun run build` as the build command and leave the output directory on automatic detection. Do not configure this as a static site: Vercel needs the server output for TanStack Start routes.
+
+The app currently requires no environment variables. If that changes, add secrets in Vercel Project Settings rather than committing them.
+
 ## Built with
 
 - TanStack Start
