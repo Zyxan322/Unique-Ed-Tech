@@ -1,49 +1,49 @@
 import { memo } from "react";
 
 /**
- * Opera-inspired Light Aurora Background
+ * Opera-Inspired Soft Red & Blue Aurora Background
  *
- * Continuous, smooth flowing pastel ribbons on a predominantly pearl-white canvas.
- * - Soft Sky Blue: #C9E5FF
- * - Ice Blue: #D9EEFF
- * - Lavender: #E5DDFB
- * - Soft Lilac: #EEE7FF
- * - Blush Pink: #F9E5EF (subtle)
- * - Pearl White base: #FFFFFF
+ * A continuously animated, layered Aurora using ONLY two primary colors:
+ *   - Soft Red:  #E88A98
+ *   - Soft Blue: #78A9E8
  *
- * Uses GPU-accelerated CSS keyframe transforms (translate3d, rotate, scale) with
- * high hardware efficiency, will-change, and reduced-motion graceful fallback.
+ * White background remains dominant. Four independent gradient layers
+ * move at different speeds, directions, and opacities to create a
+ * natural multidimensional Aurora effect — like Opera Browser's live theme.
+ *
+ * GPU-accelerated via CSS transform/opacity keyframes.
+ * Respects prefers-reduced-motion.
  */
 export const AuroraBackground = memo(function AuroraBackground() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 -z-50 overflow-hidden bg-white select-none"
+      className="pointer-events-none fixed inset-0 -z-50 overflow-hidden select-none"
+      style={{ backgroundColor: "#ffffff" }}
     >
-      {/* Base warm/clean light gradient foundation */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#FFFFFF] via-[#FAFBFD] to-[#F3F6FA]" />
+      {/* Pure white base */}
+      <div className="absolute inset-0 bg-white" />
 
-      {/* Aurora Container with multiple overlapping, morphing ribbons */}
-      <div className="aurora-container absolute inset-0">
-        {/* Ribbon 1: Sky Blue primary wave — large, sweeping diagonal */}
-        <div className="aurora-ribbon aurora-ribbon-1" />
+      {/* ── Layer 1: Soft Red — large blob, left → right drift, 25s ── */}
+      <div className="aurora-layer aurora-red" />
 
-        {/* Ribbon 2: Ice Blue & Lavender wave — flowing counter-diagonal */}
-        <div className="aurora-ribbon aurora-ribbon-2" />
+      {/* ── Layer 2: Soft Blue — large blob, right → left + diagonal, 32s ── */}
+      <div className="aurora-layer aurora-blue" />
 
-        {/* Ribbon 3: Lilac & Lavender soft veil — horizontal gentle drift */}
-        <div className="aurora-ribbon aurora-ribbon-3" />
+      {/* ── Layer 3: Blended Red+Blue — diagonal overlap, 20s ── */}
+      <div className="aurora-layer aurora-blend" />
 
-        {/* Ribbon 4: Very subtle Blush Pink whisper — occasional soft warmth */}
-        <div className="aurora-ribbon aurora-ribbon-4" />
+      {/* ── Layer 4: Atmospheric depth — very slow drift, 38s ── */}
+      <div className="aurora-layer aurora-depth" />
 
-        {/* Ribbon 5: High-altitude Ice Blue crest — upper canvas illumination */}
-        <div className="aurora-ribbon aurora-ribbon-5" />
-      </div>
-
-      {/* Soft atmospheric white overlay to guarantee dominant white identity & crisp text contrast */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.45)_0%,rgba(255,255,255,0.72)_70%,rgba(255,255,255,0.85)_100%)] backdrop-blur-[40px]" />
+      {/* Minimal white veil — just enough to keep text crisp without washing out Aurora */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.32) 60%, rgba(255,255,255,0.50) 100%)",
+        }}
+      />
     </div>
   );
 });
-

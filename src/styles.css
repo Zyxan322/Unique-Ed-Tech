@@ -343,173 +343,191 @@
 @media (max-width: 768px) { .hero-particles { display: none; } main section:not(.hero-3d) img.card-media { animation: none; } }
 
 /* ==========================================================================
-   Opera-Inspired Continuous Soft Light Aurora Background Animation
+   Opera-Inspired Soft Red & Blue Aurora Background Animation
    ========================================================================== */
 
-.aurora-container {
-  contain: paint layout size;
-  overflow: hidden;
-  perspective: 1000px;
-}
-
-.aurora-ribbon {
+/* Base shared layer styles */
+.aurora-layer {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(75px);
-  will-change: transform, opacity;
   pointer-events: none;
-  mix-blend-mode: multiply;
+  will-change: transform, opacity;
 }
 
-/* Ribbon 1: Soft Sky Blue (#C9E5FF) diagonal river */
-.aurora-ribbon-1 {
-  top: -15%;
-  left: -20%;
-  width: 90vw;
-  height: 85vh;
-  background: radial-gradient(ellipse 65% 55% at 50% 50%, #C9E5FF 0%, rgba(201, 229, 255, 0.6) 45%, transparent 75%);
-  opacity: 0.65;
-  animation: aurora-flow-1 32s cubic-bezier(0.42, 0, 0.58, 1) infinite;
-  transform-origin: center center;
-}
-
-/* Ribbon 2: Ice Blue (#D9EEFF) & Lavender (#E5DDFB) counter-wave */
-.aurora-ribbon-2 {
-  top: 15%;
-  right: -22%;
-  width: 95vw;
+/* ─────────────────────────────────────────────────────────────────────────────
+   Layer 1 — Soft Red (#E88A98)
+   Large radial blob. Drifts left → right then returns. 25s cycle.
+   opacity: 0.11
+───────────────────────────────────────────────────────────────────────────── */
+.aurora-red {
+  top: -20%;
+  left: -25%;
+  width: 100vw;
   height: 90vh;
-  background: radial-gradient(ellipse 70% 60% at 50% 50%, #D9EEFF 0%, #E5DDFB 42%, rgba(229, 221, 251, 0.45) 68%, transparent 80%);
-  opacity: 0.6;
-  animation: aurora-flow-2 38s cubic-bezier(0.42, 0, 0.58, 1) infinite;
-  transform-origin: 40% 60%;
+  background: radial-gradient(
+    ellipse 70% 60% at 45% 45%,
+    rgba(232, 138, 152, 0.80) 0%,
+    rgba(232, 138, 152, 0.45) 40%,
+    transparent 72%
+  );
+  filter: blur(80px);
+  opacity: 0.11;
+  animation: aurora-red-drift 25s ease-in-out infinite;
 }
 
-/* Ribbon 3: Soft Lilac (#EEE7FF) & Lavender horizontal drift */
-.aurora-ribbon-3 {
-  bottom: -10%;
-  left: 10%;
+/* ─────────────────────────────────────────────────────────────────────────────
+   Layer 2 — Soft Blue (#78A9E8)
+   Large radial blob. Drifts right → left diagonally. 32s cycle.
+   opacity: 0.13
+───────────────────────────────────────────────────────────────────────────── */
+.aurora-blue {
+  top: 10%;
+  right: -28%;
+  width: 105vw;
+  height: 95vh;
+  background: radial-gradient(
+    ellipse 65% 65% at 55% 55%,
+    rgba(120, 169, 232, 0.85) 0%,
+    rgba(120, 169, 232, 0.50) 38%,
+    transparent 70%
+  );
+  filter: blur(90px);
+  opacity: 0.13;
+  animation: aurora-blue-drift 32s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Layer 3 — Blended Red + Blue overlap
+   Smaller blob. Diagonal movement. 20s cycle.
+   opacity: 0.08
+───────────────────────────────────────────────────────────────────────────── */
+.aurora-blend {
+  bottom: -15%;
+  left: 20%;
   width: 80vw;
   height: 75vh;
-  background: radial-gradient(ellipse 60% 50% at 50% 50%, #EEE7FF 0%, #E5DDFB 38%, transparent 72%);
-  opacity: 0.5;
-  animation: aurora-flow-3 42s cubic-bezier(0.42, 0, 0.58, 1) infinite;
-  transform-origin: 60% 40%;
+  background: radial-gradient(
+    ellipse 60% 55% at 50% 50%,
+    rgba(200, 110, 160, 0.70) 0%,
+    rgba(120, 169, 232, 0.50) 45%,
+    rgba(232, 138, 152, 0.30) 65%,
+    transparent 78%
+  );
+  filter: blur(70px);
+  opacity: 0.08;
+  animation: aurora-blend-drift 20s ease-in-out infinite;
 }
 
-/* Ribbon 4: Very subtle Blush Pink (#F9E5EF) warmth whisper */
-.aurora-ribbon-4 {
-  top: 40%;
-  left: -10%;
-  width: 65vw;
-  height: 60vh;
-  background: radial-gradient(ellipse 55% 45% at 50% 50%, #F9E5EF 0%, rgba(249, 229, 239, 0.55) 40%, transparent 75%);
-  opacity: 0.35;
-  animation: aurora-flow-4 48s cubic-bezier(0.42, 0, 0.58, 1) infinite;
-  transform-origin: 30% 70%;
+/* ─────────────────────────────────────────────────────────────────────────────
+   Layer 4 — Atmospheric Depth
+   Very large, very subtle. Extremely slow. Adds depth without extra brightness.
+   opacity: 0.06
+───────────────────────────────────────────────────────────────────────────── */
+.aurora-depth {
+  top: 30%;
+  left: -15%;
+  width: 120vw;
+  height: 80vh;
+  background: radial-gradient(
+    ellipse 80% 70% at 50% 50%,
+    rgba(120, 169, 232, 0.60) 0%,
+    rgba(232, 138, 152, 0.40) 50%,
+    transparent 75%
+  );
+  filter: blur(100px);
+  opacity: 0.06;
+  animation: aurora-depth-drift 38s ease-in-out infinite;
 }
 
-/* Ribbon 5: High-altitude Sky Blue & Ice Blue crest */
-.aurora-ribbon-5 {
-  top: 5%;
-  left: 25%;
-  width: 70vw;
-  height: 65vh;
-  background: radial-gradient(ellipse 60% 50% at 50% 50%, #C9E5FF 0%, #D9EEFF 50%, transparent 75%);
-  opacity: 0.45;
-  animation: aurora-flow-5 35s cubic-bezier(0.42, 0, 0.58, 1) infinite;
-  transform-origin: 50% 50%;
-}
+/* ─────────────────────────────────────────────────────────────────────────────
+   KEYFRAMES — big, visible movements so Aurora is clearly moving
+───────────────────────────────────────────────────────────────────────────── */
 
-/* Continuous, seamless organic flow keyframes */
-@keyframes aurora-flow-1 {
+/* Red layer: sweeps left→right, slight vertical bob, mild scale morph */
+@keyframes aurora-red-drift {
   0% {
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    transform: translate3d(0vw, 0vh, 0) scale(1, 1);
   }
-  25% {
-    transform: translate3d(12vw, 8vh, 0) rotate(8deg) scale(1.08, 0.94);
+  20% {
+    transform: translate3d(18vw, 6vh, 0) scale(1.10, 0.92);
   }
-  50% {
-    transform: translate3d(24vw, -4vh, 0) rotate(16deg) scale(0.96, 1.05);
-  }
-  75% {
-    transform: translate3d(10vw, -10vh, 0) rotate(7deg) scale(1.04, 0.97);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
-  }
-}
-
-@keyframes aurora-flow-2 {
-  0% {
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
-  }
-  30% {
-    transform: translate3d(-14vw, 10vh, 0) rotate(-10deg) scale(1.05, 0.95);
+  40% {
+    transform: translate3d(28vw, -4vh, 0) scale(0.95, 1.08);
   }
   60% {
-    transform: translate3d(-22vw, -6vh, 0) rotate(-18deg) scale(0.95, 1.08);
+    transform: translate3d(22vw, 10vh, 0) scale(1.06, 0.96);
   }
-  85% {
-    transform: translate3d(-8vw, 4vh, 0) rotate(-6deg) scale(1.02, 0.98);
+  80% {
+    transform: translate3d(10vw, -8vh, 0) scale(0.98, 1.04);
   }
   100% {
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    transform: translate3d(0vw, 0vh, 0) scale(1, 1);
   }
 }
 
-@keyframes aurora-flow-3 {
+/* Blue layer: sweeps right→left, counter-diagonal, different rhythm */
+@keyframes aurora-blue-drift {
   0% {
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    transform: translate3d(0vw, 0vh, 0) scale(1, 1);
   }
-  33% {
-    transform: translate3d(-15vw, -8vh, 0) rotate(12deg) scale(1.07, 0.93);
+  18% {
+    transform: translate3d(-20vw, -10vh, 0) scale(1.08, 0.94);
   }
-  66% {
-    transform: translate3d(12vw, 6vh, 0) rotate(-8deg) scale(0.94, 1.06);
+  38% {
+    transform: translate3d(-30vw, 6vh, 0) scale(0.94, 1.09);
+  }
+  58% {
+    transform: translate3d(-18vw, -14vh, 0) scale(1.04, 0.97);
+  }
+  78% {
+    transform: translate3d(-8vw, 8vh, 0) scale(0.97, 1.05);
   }
   100% {
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    transform: translate3d(0vw, 0vh, 0) scale(1, 1);
   }
 }
 
-@keyframes aurora-flow-4 {
+/* Blended layer: diagonal movement, faster cycle */
+@keyframes aurora-blend-drift {
   0% {
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(0.95);
-    opacity: 0.28;
+    transform: translate3d(0vw, 0vh, 0) rotate(0deg) scale(1);
   }
-  35% {
-    transform: translate3d(18vw, -12vh, 0) rotate(-14deg) scale(1.1);
-    opacity: 0.38;
+  25% {
+    transform: translate3d(-16vw, -12vh, 0) rotate(8deg) scale(1.09, 0.93);
   }
-  70% {
-    transform: translate3d(8vw, 14vh, 0) rotate(10deg) scale(0.98);
-    opacity: 0.32;
+  50% {
+    transform: translate3d(14vw, -18vh, 0) rotate(-6deg) scale(0.93, 1.10);
+  }
+  75% {
+    transform: translate3d(20vw, 8vh, 0) rotate(10deg) scale(1.05, 0.95);
   }
   100% {
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(0.95);
-    opacity: 0.28;
+    transform: translate3d(0vw, 0vh, 0) rotate(0deg) scale(1);
   }
 }
 
-@keyframes aurora-flow-5 {
+/* Depth layer: very slow, wide drift */
+@keyframes aurora-depth-drift {
   0% {
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    transform: translate3d(0vw, 0vh, 0) scale(1);
   }
-  28% {
-    transform: translate3d(8vw, 12vh, 0) rotate(-12deg) scale(1.08, 0.95);
+  25% {
+    transform: translate3d(15vw, 10vh, 0) scale(1.06, 0.95);
   }
-  62% {
-    transform: translate3d(-10vw, 4vh, 0) rotate(14deg) scale(0.94, 1.06);
+  50% {
+    transform: translate3d(-12vw, -8vh, 0) scale(0.96, 1.07);
+  }
+  75% {
+    transform: translate3d(8vw, 15vh, 0) scale(1.03, 0.98);
   }
   100% {
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    transform: translate3d(0vw, 0vh, 0) scale(1);
   }
 }
 
 /* Reduced motion accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .aurora-ribbon {
+  .aurora-layer {
     animation: none !important;
     transform: none !important;
   }
