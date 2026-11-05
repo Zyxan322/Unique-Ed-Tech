@@ -343,191 +343,89 @@
 @media (max-width: 768px) { .hero-particles { display: none; } main section:not(.hero-3d) img.card-media { animation: none; } }
 
 /* ==========================================================================
-   Opera-Inspired Soft Red & Blue Aurora Background Animation
+   Opera-Inspired SVG Aurora — Flowing Curved Light Ribbon Animations
+   Red: #E8A0AC / #D98698 / #F1C2CC   Blue: #94BCEB / #789FD0 / #C0D9F5
    ========================================================================== */
 
-/* Base shared layer styles */
-.aurora-layer {
-  position: absolute;
-  border-radius: 9999px;
-  pointer-events: none;
-  will-change: transform, opacity;
+/*
+  All animated SVG groups share will-change: transform for GPU compositing.
+  transform-box: fill-box makes transform-origin relative to each element.
+*/
+.ar-r1, .ar-b1, .ar-r2, .ar-b2, .ar-blend, .ar-atm {
+  will-change: transform;
+  transform-box: fill-box;
+  transform-origin: center center;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Layer 1 — Soft Red (#E88A98)
-   Large radial blob. Drifts left → right then returns. 25s cycle.
-   opacity: 0.11
-───────────────────────────────────────────────────────────────────────────── */
-.aurora-red {
-  top: -20%;
-  left: -25%;
-  width: 100vw;
-  height: 90vh;
-  background: radial-gradient(
-    ellipse 70% 60% at 45% 45%,
-    rgba(232, 138, 152, 0.80) 0%,
-    rgba(232, 138, 152, 0.45) 40%,
-    transparent 72%
-  );
-  filter: blur(80px);
-  opacity: 0.11;
-  animation: aurora-red-drift 25s ease-in-out infinite;
+/* ══ Ribbon 1: Main Red ══ 28s horizontal drift */
+.ar-r1 { animation: ar-r1 28s ease-in-out infinite; }
+
+@keyframes ar-r1 {
+  0%   { transform: translate(0px,    0px)   scaleY(1.00); }
+  18%  { transform: translate(135px, -52px)  scaleY(1.08); }
+  40%  { transform: translate(215px,  22px)  scaleY(0.93); }
+  62%  { transform: translate(142px,  72px)  scaleY(1.05); }
+  80%  { transform: translate( 55px, -26px)  scaleY(0.97); }
+  100% { transform: translate(0px,    0px)   scaleY(1.00); }
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Layer 2 — Soft Blue (#78A9E8)
-   Large radial blob. Drifts right → left diagonally. 32s cycle.
-   opacity: 0.13
-───────────────────────────────────────────────────────────────────────────── */
-.aurora-blue {
-  top: 10%;
-  right: -28%;
-  width: 105vw;
-  height: 95vh;
-  background: radial-gradient(
-    ellipse 65% 65% at 55% 55%,
-    rgba(120, 169, 232, 0.85) 0%,
-    rgba(120, 169, 232, 0.50) 38%,
-    transparent 70%
-  );
-  filter: blur(90px);
-  opacity: 0.13;
-  animation: aurora-blue-drift 32s ease-in-out infinite;
+/* ══ Ribbon 2: Main Blue ══ 35s counter-diagonal */
+.ar-b1 { animation: ar-b1 35s ease-in-out infinite; }
+
+@keyframes ar-b1 {
+  0%   { transform: translate(   0px,   0px) scaleX(1.00); }
+  22%  { transform: translate(-162px, -68px) scaleX(1.07); }
+  48%  { transform: translate(-235px,  38px) scaleX(0.94); }
+  72%  { transform: translate(-115px,  88px) scaleX(1.05); }
+  88%  { transform: translate( -42px, -18px) scaleX(0.98); }
+  100% { transform: translate(   0px,   0px) scaleX(1.00); }
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Layer 3 — Blended Red + Blue overlap
-   Smaller blob. Diagonal movement. 20s cycle.
-   opacity: 0.08
-───────────────────────────────────────────────────────────────────────────── */
-.aurora-blend {
-  bottom: -15%;
-  left: 20%;
-  width: 80vw;
-  height: 75vh;
-  background: radial-gradient(
-    ellipse 60% 55% at 50% 50%,
-    rgba(200, 110, 160, 0.70) 0%,
-    rgba(120, 169, 232, 0.50) 45%,
-    rgba(232, 138, 152, 0.30) 65%,
-    transparent 78%
-  );
-  filter: blur(70px);
-  opacity: 0.08;
-  animation: aurora-blend-drift 20s ease-in-out infinite;
+/* ══ Ribbon 3: Secondary Red ══ 23s slow diagonal */
+.ar-r2 { animation: ar-r2 23s ease-in-out infinite; }
+
+@keyframes ar-r2 {
+  0%   { transform: translate(   0px,   0px); }
+  30%  { transform: translate(-115px, -58px) scaleY(1.07); }
+  60%  { transform: translate(  88px, -84px) scaleY(0.93); }
+  100% { transform: translate(   0px,   0px); }
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Layer 4 — Atmospheric Depth
-   Very large, very subtle. Extremely slow. Adds depth without extra brightness.
-   opacity: 0.06
-───────────────────────────────────────────────────────────────────────────── */
-.aurora-depth {
-  top: 30%;
-  left: -15%;
-  width: 120vw;
-  height: 80vh;
-  background: radial-gradient(
-    ellipse 80% 70% at 50% 50%,
-    rgba(120, 169, 232, 0.60) 0%,
-    rgba(232, 138, 152, 0.40) 50%,
-    transparent 75%
-  );
-  filter: blur(100px);
-  opacity: 0.06;
-  animation: aurora-depth-drift 38s ease-in-out infinite;
+/* ══ Ribbon 4: Secondary Blue ══ 30s upper drift */
+.ar-b2 { animation: ar-b2 30s ease-in-out infinite; }
+
+@keyframes ar-b2 {
+  0%   { transform: translate(   0px,  0px); }
+  28%  { transform: translate(-145px, 58px); }
+  58%  { transform: translate(  68px, 92px); }
+  80%  { transform: translate(  32px, 22px); }
+  100% { transform: translate(   0px,  0px); }
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   KEYFRAMES — big, visible movements so Aurora is clearly moving
-───────────────────────────────────────────────────────────────────────────── */
+/* ══ Ribbon 5: Blended Center ══ 42s figure-eight */
+.ar-blend { animation: ar-blend 42s ease-in-out infinite; }
 
-/* Red layer: sweeps left→right, slight vertical bob, mild scale morph */
-@keyframes aurora-red-drift {
-  0% {
-    transform: translate3d(0vw, 0vh, 0) scale(1, 1);
-  }
-  20% {
-    transform: translate3d(18vw, 6vh, 0) scale(1.10, 0.92);
-  }
-  40% {
-    transform: translate3d(28vw, -4vh, 0) scale(0.95, 1.08);
-  }
-  60% {
-    transform: translate3d(22vw, 10vh, 0) scale(1.06, 0.96);
-  }
-  80% {
-    transform: translate3d(10vw, -8vh, 0) scale(0.98, 1.04);
-  }
-  100% {
-    transform: translate3d(0vw, 0vh, 0) scale(1, 1);
-  }
+@keyframes ar-blend {
+  0%   { transform: translate(   0px,   0px) scale(1.00); }
+  25%  { transform: translate(  92px, -68px) scale(1.06); }
+  50%  { transform: translate( -72px, -48px) scale(0.95); }
+  75%  { transform: translate(-115px,  58px) scale(1.04); }
+  100% { transform: translate(   0px,   0px) scale(1.00); }
 }
 
-/* Blue layer: sweeps right→left, counter-diagonal, different rhythm */
-@keyframes aurora-blue-drift {
-  0% {
-    transform: translate3d(0vw, 0vh, 0) scale(1, 1);
-  }
-  18% {
-    transform: translate3d(-20vw, -10vh, 0) scale(1.08, 0.94);
-  }
-  38% {
-    transform: translate3d(-30vw, 6vh, 0) scale(0.94, 1.09);
-  }
-  58% {
-    transform: translate3d(-18vw, -14vh, 0) scale(1.04, 0.97);
-  }
-  78% {
-    transform: translate3d(-8vw, 8vh, 0) scale(0.97, 1.05);
-  }
-  100% {
-    transform: translate3d(0vw, 0vh, 0) scale(1, 1);
-  }
-}
+/* ══ Ribbon 6: Atmospheric Wash ══ 50s background drift */
+.ar-atm { animation: ar-atm 50s ease-in-out infinite; }
 
-/* Blended layer: diagonal movement, faster cycle */
-@keyframes aurora-blend-drift {
-  0% {
-    transform: translate3d(0vw, 0vh, 0) rotate(0deg) scale(1);
-  }
-  25% {
-    transform: translate3d(-16vw, -12vh, 0) rotate(8deg) scale(1.09, 0.93);
-  }
-  50% {
-    transform: translate3d(14vw, -18vh, 0) rotate(-6deg) scale(0.93, 1.10);
-  }
-  75% {
-    transform: translate3d(20vw, 8vh, 0) rotate(10deg) scale(1.05, 0.95);
-  }
-  100% {
-    transform: translate3d(0vw, 0vh, 0) rotate(0deg) scale(1);
-  }
-}
-
-/* Depth layer: very slow, wide drift */
-@keyframes aurora-depth-drift {
-  0% {
-    transform: translate3d(0vw, 0vh, 0) scale(1);
-  }
-  25% {
-    transform: translate3d(15vw, 10vh, 0) scale(1.06, 0.95);
-  }
-  50% {
-    transform: translate3d(-12vw, -8vh, 0) scale(0.96, 1.07);
-  }
-  75% {
-    transform: translate3d(8vw, 15vh, 0) scale(1.03, 0.98);
-  }
-  100% {
-    transform: translate3d(0vw, 0vh, 0) scale(1);
-  }
+@keyframes ar-atm {
+  0%   { transform: translate(   0px,   0px) scale(1.00); }
+  33%  { transform: translate( 115px,  58px) scale(1.04); }
+  66%  { transform: translate( -92px, -38px) scale(0.97); }
+  100% { transform: translate(   0px,   0px) scale(1.00); }
 }
 
 /* Reduced motion accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .aurora-layer {
+  .ar-r1, .ar-b1, .ar-r2, .ar-b2, .ar-blend, .ar-atm {
     animation: none !important;
     transform: none !important;
   }
