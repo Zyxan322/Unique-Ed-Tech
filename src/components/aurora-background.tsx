@@ -34,13 +34,13 @@ export const AuroraBackground = memo(function AuroraBackground() {
         <defs>
           {/* ── Blur filters — large filter region to avoid clipping ── */}
           <filter id="af-b40" x="-60%" y="-60%" width="220%" height="220%">
-            <feGaussianBlur stdDeviation="40" />
+            <feGaussianBlur stdDeviation="28" />
           </filter>
           <filter id="af-b55" x="-70%" y="-70%" width="240%" height="240%">
-            <feGaussianBlur stdDeviation="55" />
+            <feGaussianBlur stdDeviation="42" />
           </filter>
           <filter id="af-b70" x="-80%" y="-80%" width="260%" height="260%">
-            <feGaussianBlur stdDeviation="70" />
+            <feGaussianBlur stdDeviation="58" />
           </filter>
 
           {/* ── Red Gradients ── */}
@@ -93,7 +93,7 @@ export const AuroraBackground = memo(function AuroraBackground() {
          * Cycle: 28s   Opacity: 0.14
          * ══════════════════════════════════════════════════════════════
          */}
-        <g className="ar-r1" filter="url(#af-b40)" opacity="0.14">
+        <g className="ar-r1" filter="url(#af-b40)" opacity="0.32">
           <path
             d="
               M -300 230
@@ -116,7 +116,7 @@ export const AuroraBackground = memo(function AuroraBackground() {
          * Cycle: 35s   Opacity: 0.15
          * ══════════════════════════════════════════════════════════════
          */}
-        <g className="ar-b1" filter="url(#af-b55)" opacity="0.15">
+        <g className="ar-b1" filter="url(#af-b55)" opacity="0.34">
           <path
             d="
               M  580  -90
@@ -139,7 +139,7 @@ export const AuroraBackground = memo(function AuroraBackground() {
          * Cycle: 23s   Opacity: 0.10
          * ══════════════════════════════════════════════════════════════
          */}
-        <g className="ar-r2" filter="url(#af-b55)" opacity="0.10">
+        <g className="ar-r2" filter="url(#af-b55)" opacity="0.26">
           <path
             d="
               M -300 530
@@ -162,7 +162,7 @@ export const AuroraBackground = memo(function AuroraBackground() {
          * Cycle: 30s   Opacity: 0.11
          * ══════════════════════════════════════════════════════════════
          */}
-        <g className="ar-b2" filter="url(#af-b40)" opacity="0.11">
+        <g className="ar-b2" filter="url(#af-b40)" opacity="0.28">
           <path
             d="
               M  760 -155
@@ -185,7 +185,7 @@ export const AuroraBackground = memo(function AuroraBackground() {
          * Cycle: 42s   Opacity: 0.08
          * ══════════════════════════════════════════════════════════════
          */}
-        <g className="ar-blend" filter="url(#af-b70)" opacity="0.08">
+        <g className="ar-blend" filter="url(#af-b70)" opacity="0.22">
           <path
             d="
               M  140 275
@@ -208,7 +208,7 @@ export const AuroraBackground = memo(function AuroraBackground() {
          * Cycle: 50s   Opacity: 0.06
          * ══════════════════════════════════════════════════════════════
          */}
-        <g className="ar-atm" filter="url(#af-b70)" opacity="0.06">
+        <g className="ar-atm" filter="url(#af-b70)" opacity="0.16">
           <path
             d="
               M -420 100
@@ -233,7 +233,7 @@ export const AuroraBackground = memo(function AuroraBackground() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 130% 110% at 50% 50%, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.20) 55%, rgba(255,255,255,0.40) 100%)",
+            "radial-gradient(ellipse 130% 110% at 50% 50%, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.10) 55%, rgba(255,255,255,0.22) 100%)",
         }}
       />
     </div>
